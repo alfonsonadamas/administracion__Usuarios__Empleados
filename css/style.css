@@ -1,0 +1,15 @@
+.boton{
+    color: white;
+    text-decoration: none;
+    margin: 6px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: rgb(91, 91, 255);
+    font-weight: 700;
+}
+
+.boton:hover{
+    color: white;
+    text-decoration: none;
+}
