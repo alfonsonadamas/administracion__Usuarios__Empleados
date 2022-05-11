@@ -64,9 +64,9 @@ Email	 	 : info@obedalvarado.pw
                 $transac = "START TRANSACTION";
                 $miConsulta = "UPDATE usuarios SET userName = '$nombres', password = '$lugar_nacimiento' ,email = '$fecha_nacimiento', nombre = '$direccion', apellidos = '$telefono' , rol = '$estado' WHERE idUser = '$nik'"; //Crear el UPDATE para el campo codigo igual a variable 
                 $commit = "COMMIT";
-                $t = mysqli_query($con, $transac) or die(mysqli_error());
+                $trans = mysqli_query($con, $transac) or die(mysqli_error());
                 $update = mysqli_query($con, $miConsulta) or die(mysqli_error());
-				$c = mysqli_query($con, $commit) or die(mysqli_error());
+				$com = mysqli_query($con, $commit) or die(mysqli_error());
 				if($update){
 					header("Location: editUsuario.php?nik=".$nik."&pesan=sukses");
 				}else{
