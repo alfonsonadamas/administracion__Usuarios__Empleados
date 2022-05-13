@@ -42,19 +42,19 @@ Email	 	 : info@obedalvarado.pw
 
 			<?php
 			if(isset($_POST['add'])){
-				$codigo		     = mysqli_real_escape_string($con,(strip_tags($_POST["codigo"],ENT_QUOTES)));//Escanpando caracteres 
-				$nombres		     = mysqli_real_escape_string($con,(strip_tags($_POST["nombres"],ENT_QUOTES)));//Escanpando caracteres 
-				$lugar_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["lugar_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
-				$fecha_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["fecha_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
-				$direccion	     = mysqli_real_escape_string($con,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
-				$telefono		 = mysqli_real_escape_string($con,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
-				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres  
+				$id		     = mysqli_real_escape_string($con,(strip_tags($_POST["id"],ENT_QUOTES)));//Escanpando caracteres 
+				$nombreUsuario		     = mysqli_real_escape_string($con,(strip_tags($_POST["nombreUsuario"],ENT_QUOTES)));//Escanpando caracteres 
+				$contrasenia	 = mysqli_real_escape_string($con,(strip_tags($_POST["contrasenia"],ENT_QUOTES)));//Escanpando caracteres 
+				$email	 = mysqli_real_escape_string($con,(strip_tags($_POST["email"],ENT_QUOTES)));//Escanpando caracteres 
+				$nombre	     = mysqli_real_escape_string($con,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+				$apellido		 = mysqli_real_escape_string($con,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
+				$rol			 = mysqli_real_escape_string($con,(strip_tags($_POST["rol"],ENT_QUOTES)));//Escanpando caracteres  
 				
-			 $miConsulta = "SELECT * FROM usuarios WHERE idUser = '$codigo'"; //crear consulta que seleccione el registro donde el campo codigo sea igual a la variable $codigo
+			 $miConsulta = "SELECT * FROM usuarios WHERE id = '$id'"; //crear consulta que seleccione el registro donde el campo id sea igual a la variable $id
 
 				$cek = mysqli_query($con, $miConsulta);
 				if(mysqli_num_rows($cek) == 0){
-                        $miConsulta = "INSERT INTO usuarios(userName, nombre, apellidos,password,email,fechaRegis,rol) VALUES('$nombres','$direccion','$telefono','$lugar_nacimiento', '$fecha_nacimiento',NOW(),'$estado')"; //crear la consulta del INSERT INTO 
+                        $miConsulta = "INSERT INTO usuarios(id,nombreUsuario, nombre, apellidos,contrasenia,email,fechaRegistro,rol) VALUES('$id','$nombreUsuario','$nombre','$apellido','$contrasenia', '$email',NOW(),'$rol')"; //crear la consulta del INSERT INTO 
 						$insert = mysqli_query($con, $miConsulta) or die(mysqli_error());
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
@@ -72,43 +72,43 @@ Email	 	 : info@obedalvarado.pw
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Código</label>
 					<div class="col-sm-2">
-						<input type="text" name="codigo" class="form-control" placeholder="Código" required>
+						<input type="text" name="id" class="form-control" placeholder="Código" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre de Usuario</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombres" class="form-control" placeholder="Nombre de Usuario" required>
+						<input type="text" name="nombreUsuario" class="form-control" placeholder="Nombre de Usuario" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Contraseña</label>
 					<div class="col-sm-4">
-						<input type="text" name="lugar_nacimiento" class="form-control" placeholder="Contraseña" required>
+						<input type="text" name="contrasenia" class="form-control" placeholder="Contraseña" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Email</label>
 					<div class="col-sm-4">
-						<input type="text" name="fecha_nacimiento" class="input-group date form-control" date="" data-date-format="dd-mm-yyyy" placeholder="Email" required>
+						<input type="text" name="email" class="input-group date form-control" date="" data-date-format="dd-mm-yyyy" placeholder="Email" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre</label>
 					<div class="col-sm-3">
-						<input name="direccion" class="form-control" placeholder="Nombre"></input>
+						<input name="nombre" class="form-control" placeholder="Nombre"></input>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Apellido</label>
 					<div class="col-sm-3">
-						<input type="text" name="telefono" class="form-control" placeholder="Apellido" required>
+						<input type="text" name="apellido" class="form-control" placeholder="Apellido" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Rol</label>
 					<div class="col-sm-3">
-						<select name="estado" class="form-control">
+						<select name="rol" class="form-control">
 							<option value=""> ----- </option>
                            <option value="1">Administrador</option>
 							<option value="2">Programador</option>

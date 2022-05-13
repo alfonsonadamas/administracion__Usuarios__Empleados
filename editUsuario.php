@@ -44,8 +44,8 @@ Email	 	 : info@obedalvarado.pw
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
-            //Buscar en el campo codigo el dato que coindica con la variable $nik para editar el registro
-            $miConsulta = "SELECT * FROM usuarios WHERE idUser = '$nik'"; 
+            //Buscar en el campo id el dato que coindica con la variable $nik para editar el registro
+            $miConsulta = "SELECT * FROM usuarios WHERE id = '$nik'"; 
 			$sql = mysqli_query($con, $miConsulta);
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: index.php");
@@ -53,19 +53,19 @@ Email	 	 : info@obedalvarado.pw
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if(isset($_POST['save'])){
-				$codigo		     = mysqli_real_escape_string($con,(strip_tags($_POST["codigo"],ENT_QUOTES)));//Escanpando caracteres 
-				$nombres		     = mysqli_real_escape_string($con,(strip_tags($_POST["nombres"],ENT_QUOTES)));//Escanpando caracteres 
-				$lugar_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["lugar_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
-				$fecha_nacimiento	 = mysqli_real_escape_string($con,(strip_tags($_POST["fecha_nacimiento"],ENT_QUOTES)));//Escanpando caracteres 
-				$direccion	     = mysqli_real_escape_string($con,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
-				$telefono		 = mysqli_real_escape_string($con,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
-				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres  
+				$id		     = mysqli_real_escape_string($con,(strip_tags($_POST["id"],ENT_QUOTES)));//Escanpando caracteres 
+				$nombreUsuario		     = mysqli_real_escape_string($con,(strip_tags($_POST["nombreUsuario"],ENT_QUOTES)));//Escanpando caracteres 
+				$contrasenia	 = mysqli_real_escape_string($con,(strip_tags($_POST["contrasenia"],ENT_QUOTES)));//Escanpando caracteres 
+				$email	 = mysqli_real_escape_string($con,(strip_tags($_POST["email"],ENT_QUOTES)));//Escanpando caracteres 
+				$nombre	     = mysqli_real_escape_string($con,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+				$apellido		 = mysqli_real_escape_string($con,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
+				$rol			 = mysqli_real_escape_string($con,(strip_tags($_POST["rol"],ENT_QUOTES)));//Escanpando caracteres  
 
                 $transac = "START TRANSACTION";
-                $miConsulta = "UPDATE usuarios SET userName = '$nombres', password = '$lugar_nacimiento' ,email = '$fecha_nacimiento', nombre = '$direccion', apellidos = '$telefono' , rol = '$estado' WHERE idUser = '$nik'"; //Crear el UPDATE para el campo codigo igual a variable 
-                $commit = "COMMIT";
-                $trans = mysqli_query($con, $transac) or die(mysqli_error());
+				$trans = mysqli_query($con, $transac) or die(mysqli_error());
+                $miConsulta = "UPDATE usuarios SET nombreUsuario = '$nombreUsuario', contrasenia = '$contrasenia' ,email = '$email', nombre = '$nombre', apellidos = '$apellido' , rol = '$rol' WHERE id = '$nik'"; //Crear el UPDATE para el campo id igual a variable 
                 $update = mysqli_query($con, $miConsulta) or die(mysqli_error());
+				$commit = "COMMIT";
 				$com = mysqli_query($con, $commit) or die(mysqli_error());
 				if($update){
 					header("Location: editUsuario.php?nik=".$nik."&pesan=sukses");
@@ -82,43 +82,43 @@ Email	 	 : info@obedalvarado.pw
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Código</label>
 					<div class="col-sm-2">
-						<input type="text" name="codigo" value="<?php echo $row ['idUser']; ?>" class="form-control" placeholder="Id Usuario" readonly="readonly" required>
+						<input type="text" name="id" value="<?php echo $row ['id']; ?>" class="form-control" placeholder="Id Usuario" readonly="readonly" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre de Usuario</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombres" value="<?php echo $row ['userName']; ?>" class="form-control" placeholder="Nombre de Usuario" required>
+						<input type="text" name="nombreUsuario" value="<?php echo $row ['nombreUsuario']; ?>" class="form-control" placeholder="Nombre de Usuario" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Contraseña</label>
 					<div class="col-sm-4">
-						<input type="text" name="lugar_nacimiento" value="<?php echo $row ['password']; ?>" class="form-control" placeholder="Contraseña" required>
+						<input type="text" name="contrasenia" value="<?php echo $row ['contrasenia']; ?>" class="form-control" placeholder="Contrasenia" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Email</label>
 					<div class="col-sm-4">
-						<input type="text" name="fecha_nacimiento" value="<?php echo $row ['email']; ?>" class="input-group date form-control" placeholder="Email" required>
+						<input type="text" name="email" value="<?php echo $row ['email']; ?>" class="input-group date form-control" placeholder="Email" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre</label>
 					<div class="col-sm-3">
-						<input name="direccion" class="form-control" placeholder="Nombre"><?php echo $row ['nombre']; ?></input>
+						<input type="text" name="nombre" class="form-control" placeholder="Nombre" value = "<?php echo $row ['nombre']; ?>">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Apellido</label>
 					<div class="col-sm-3">
-						<input type="text" name="telefono" value="<?php echo $row ['apellidos']; ?>" class="form-control" placeholder="Apellido" required>
+						<input type="text" name="apellido" value="<?php echo $row ['apellidos']; ?>" class="form-control" placeholder="Apellido" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Rol</label>
 					<div class="col-sm-3">
-						<select name="estado" class="form-control">
+						<select name="rol" class="form-control">
 							<option value="">- Selecciona un rol -</option>
                             <option value="1" <?php if ($row ['rol']==1){echo "selected";} ?>>Administrador</option>
 							<option value="2" <?php if ($row ['rol']==2){echo "selected";} ?>>Programador</option>

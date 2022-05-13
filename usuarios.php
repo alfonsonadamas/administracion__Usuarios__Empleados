@@ -37,12 +37,12 @@
 			if(isset($_GET['aksi']) == 'delete'){
 				// escaping, additionally removing everything that could be (html/javascript-) code
 				$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
-                $miConsulta = "SELECT * FROM usuarios WHERE idUser = '$nik'"; //buscar el empleado que tenga en el campo codigo lo que hay en la variable $nik para ser eliminado
+                $miConsulta = "SELECT * FROM usuarios WHERE id = '$nik'"; //buscar el empleado que tenga en el campo codigo lo que hay en la variable $nik para ser eliminado
 				$cek = mysqli_query($con,$miConsulta);
 				if(mysqli_num_rows($cek) == 0){
 					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
 				}else{
-					$delete = mysqli_query($con, "DELETE FROM usuarios WHERE idUser='$nik'");
+					$delete = mysqli_query($con, "DELETE FROM usuarios WHERE id='$nik'");
 					if($delete){
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
 					}else{
@@ -79,11 +79,11 @@
 				</tr>
 				<?php
 				if($filter){
-                    $miConsulta = "SELECT *  FROM usuarios '";   //crear una consulta que muestre a todos los usuarios de la tabla empleados 
+                    $miConsulta = "SELECT *  FROM usuarios WHERE rol = '$filter'";   //crear una consulta que muestre a todos los usuarios de la tabla empleados 
                                         //que coincidan con el contenido del campo estado y de la variable $filter
 					$sql = mysqli_query($con, $miConsulta);
 				}else{
-                    $miConsulta = "SELECT * FROM usuarios ORDER BY idUser ASC"; //crear una consulta que muestre a todos los usuarios de la tabla usuarios ordenadas por el campo código
+                    $miConsulta = "SELECT * FROM usuarios ORDER BY id ASC"; //crear una consulta que muestre a todos los usuarios de la tabla usuarios ordenadas por el campo código
 					$sql = mysqli_query($con, $miConsulta);
 				}
 				if(mysqli_num_rows($sql) == 0){
@@ -94,9 +94,9 @@
 						echo '
 						<tr>
 							<td>'.$no.'</td>
-							<td>'.$row['idUser'].'</td>
-							<td><a href="profile.php?nik='.$row['idUser'].'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$row['userName'].'</a></td>
-                            <td>'.$row['password'].'</td>
+							<td>'.$row['id'].'</td>
+							<td><a href="profileUsuario.php?nik='.$row['id'].'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$row['nombreUsuario'].'</a></td>
+                            <td>'.$row['contrasenia'].'</td>
                             <td>'.$row['nombre'].'</td>
 							<td>'.$row['apellidos'].'</td>
                             <td>'.$row['email'].'</td>
@@ -115,8 +115,8 @@
 							</td>
 							<td>
 
-								<a href="editUsuario.php?nik='.$row['idUser'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-								<a href="usuarios.php?aksi=delete&nik='.$row['idUser'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="editUsuario.php?nik='.$row['id'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+								<a href="usuarios.php?aksi=delete&nik='.$row['id'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';

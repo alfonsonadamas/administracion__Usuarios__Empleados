@@ -1,11 +1,11 @@
 <?php
     require 'conexion.php';
     session_start();
-    $usuario = $_POST['email'];
+    $usuario = $_POST['user'];
     $password = $_POST['password'];
     $pass_sha1 = sha1($password);
 
-    $query = "SELECT count(*) as contar FROM usuarios WHERE email = '$usuario' AND password = '$password'";
+    $query = "SELECT count(*) as contar FROM usuarios WHERE email = '$usuario' AND contrasenia = '$password'";
 
     $consulta = mysqli_query($con, $query);
 
